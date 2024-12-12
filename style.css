@@ -1,0 +1,125 @@
+*{
+    padding:0;
+    margin:0;
+}
+body{
+    background-color: floralwhite;
+}
+header{
+    z-index: 99999;
+    background-color: antiquewhite;
+    height: 80px;
+    width: 100%;
+    position: fixed;
+}
+h1{
+    position: absolute;
+    left: 10vw;
+    top: 0;
+    line-height: 80px;
+    color: brown;
+    margin: 0;
+}
+.titleicon{
+    position: absolute;
+    left: -80px;
+    top: 0;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;/*使边角变圆*/
+}
+header ul{
+    position:absolute;
+    right: 5vw;
+    top: 0;
+    line-height: 80px;
+}
+header a{
+    color: brown;
+    text-decoration: none;
+}
+header a:hover{
+    text-decoration: underline; 
+}
+header li{
+    display: inline;
+    margin-right: 4vw;
+}
+img{
+    width: 100%;
+    height: auto;
+}
+.container{
+    display: grid;
+    grid-template-columns: 50% 50%;/*左边50% 右边50%*/
+    height: 90vh;
+}
+.left{
+    padding: 20px;
+    border-right: brown dotted;
+    background-color:floralwhite;
+    background-image: url('图片/气泡背景图.png');
+    background-size: 300px 500px;  /* 图片覆盖整个容器，保持比例 */
+    background-position: center center;  /* 图片居中 */
+    background-repeat: no-repeat;  /* 不重复背景图 */
+}
+.right{
+    display: grid;
+    grid-template-rows: 32% 68%;/*上面32% 下面68%*/
+    height: 100%;
+}
+.rightup{
+    margin-left: 10px;
+    border-bottom:brown dotted ;
+}
+.rightdown{
+    margin-left: 10px;
+}
+section{
+    z-index: 0;
+    scroll-margin-top: 80px;/*规定锚点，使点击导航栏跳转时不会出现导航栏遮挡页面的情况*/
+    background-color:floralwhite;
+    border-bottom:brown dotted;
+    border-top: brown dotted;
+    height: 90vh;
+}
+.first{
+    padding-top: 80px;/*规定第一页的内边距*/
+    background-image: url('封面背景.png');
+    background-size: 50% 75%;  /* 背景图像的宽度为 50%，高度为 75% */
+    background-position: center top;
+    background-repeat: no-repeat;  /* 背景图像不重复 */
+    background-position: 50% 50%;
+    overflow: hidden;
+}
+h2{
+    left: 10vw;
+    top: 0;
+    line-height: 60px;
+    color: brown;
+}
+h3{
+    left: 10vw;
+    color: brown;
+}
+.contentinfo{
+    margin-top: 20px;
+    font-size: 18px;
+}
+.brown-text {
+    color: brown;
+    font-size: 1.17em;  /* 或大约 19.2px */
+    font-weight: bold;  /* 或 700 */
+}
+.milkteacolumn{
+    width: 100px;
+    height: 400px;
+    overflow: auto;
+}
+#main{
+    width: 900px;
+    height: 600px;
+    margin: 0 auto;  /* 水平居中 */
+    position: relative;
+    top: 50px;  /* 距离页面顶部 50px */
+}

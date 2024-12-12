@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><!--不会显示在网页里面-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给生活加点甜</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body><!--网页主体-->
+    
+    <header><!--头部，放置标题导览列等-->
+        <h1><img src="标题栏图标奶茶.ico" class="titleicon">给生活加点甜</h1>
+        <nav><!--放置导览列或主选单-->
+            <ul><!--无序号列表-->
+                <li><a href="#品牌热度">品牌热度</a></li>
+                <li><a href="#奶茶成分">奶茶成分</a></li>
+                <li><a href="#奶茶地图">奶茶地图</a></li>
+                <li><a href="#奶茶分类价格图">奶茶分类价格图</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main><!--网页主要内容-->
+        <section id="品牌热度" class="first"><!--将主体分块-->
+            <h2>品牌热度</h2>
+
+            <!-- 引入刚刚下载的 ECharts 文件 -->
+                <script src="echarts.js"></script>
+            </head>
+            <body>
+            <body background="封面背景.png">  
+            <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+            <div id="main" style="width: 100%;height:600px;"></div>
+            <script type="text/javascript">
+                // 基于准备好的dom，初始化echarts实例
+                var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+option = {
+  dataset: [
+    {
+      dimensions: ['品牌', '百度指数'],
+      source: [
+        ['蜜雪冰城', 3495],
+        ['古茗', 1580],
+        ['茶百道', 1501],
+        ['书亦烧仙草', 738],
+        ['霸王茶姬', 6309],
+        ['奈雪的茶', 1229],
+        ['沪上阿姨', 1373],
+        ['喜茶', 1638],
+        ['一点点', 791],
+        ['茶颜悦色', 3892],
+        ['益禾堂', 845],
+        ['一只酸奶牛', 298],
+        ['快乐柠檬', 175],
+        ['都可', 235],
+        ['甜啦啦', 576],
+        ['大卡司', 131],
+        ['一鸣真鲜奶吧', 187],
+        ['悸动烧仙草', 196],
+      ]
+    },
+    {
+      transform: {
+        type: 'sort',
+        config: { dimension: '百度指数', order: 'desc' }
+      }
+    }
+  ],
+  grid: {
+    left: '15%',   // 将图表整体向右移动
+    right: '10%',  // 保持右边距
+    top: '20%',    // 将图表整体向下移动
+    bottom: '15%'  // 保持下边距
+  },
+  xAxis: {
+    type: 'category',
+    axisLabel: { 
+        interval: 0,
+        rotate: 30 ,
+        color: 'brown'// 设置横坐标轴标签的文字颜色为棕色
+    }
+  },
+  yAxis: {
+    type:'value',
+    axisLabel:{
+      color:'brown'
+    }
+  },
+                        tooltip: {
+                            trigger: 'axis', // 鼠标悬停时显示数据
+                            axisPointer: {
+                                type: 'shadow' // 阴影指示器，适合柱状图
+                            },
+                            formatter: function (params) {
+                                // 自定义格式化显示内容
+                                var data = params[0].data; // 获取当前鼠标悬停的柱状图数据
+                                return params[0].name + '<br>' + 
+                                '热度: ' + data ;
+                            },
+                            textStyle: {
+                                    color: '#D2B48C', // 提示框中文字颜色
+                                },
+                            padding: [10, 15], // 提示框的内边距
+                            extraCssText: 'box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);', // 提示框阴影效果
+                        },
+  series: {
+    type: 'bar',
+    encode: { x: '品牌', y: '百度指数' },
+    datasetIndex: 1,
+    itemStyle: {
+      color: '#D2B48C' , // 设置柱状图的颜色，可以根据需求调整颜色
+    }
+  }
+};
+
+option && myChart.setOption(option);
+            </script>
+            </body>
+        </section>
+
+        <section id="奶茶成分">
+            <div class="container"><!--容器-->
+                <div class="left"><!--左边-->
+                    <h2>奶茶成分图</h2>
+                    <h3>来看看一杯奶茶中含有哪些营养成分吧</h3>
+                    <!-- 引入刚刚下载的 ECharts 文件 -->
+                    <script src="echarts.js"></script>
+                    <body>
+                        <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+                        <!--用于显示散点图--> 
+                        <div id="mybubble" style="width: 100%;height:80%;"></div>
+
+                        <script type="text/javascript">
+                        // 基于准备好的dom，初始化echarts实例
+                        var chartDom = document.getElementById('mybubble');
+                        var myChart = echarts.init(chartDom);
+                        var option;
+                        //气泡数据
+                        const data = [
+                        [12000, 9, 3087.4, '热量',
+                        '供身体维持生命、生长发育和运动。热量供给过多时，多余的热量就会变成脂肪贮存起来，时间久了，身体就胖起来了。奶茶中的热量主要来源于：糖分（糖浆、甜味剂、珍珠糖浆等），奶制品（如牛奶、奶精、奶粉、奶油等），植物油类成分（如椰浆），配料（如布丁、椰果、果冻等）。'],//横坐标 纵坐标 大小 名称 成份介绍
+                        [12500, 35, 3087.4, '热量',
+                        '供身体维持生命、生长发育和运动。热量供给过多时，多余的热量就会变成脂肪贮存起来，时间久了，身体就胖起来了。奶茶中的热量主要来源于：糖分（糖浆、甜味剂、珍珠糖浆等），奶制品（如牛奶、奶精、奶粉、奶油等），植物油类成分（如椰浆），配料（如布丁、椰果、果冻等）。'],
+                        [14000, 23, 3087.4, '热量',
+                        '供身体维持生命、生长发育和运动。热量供给过多时，多余的热量就会变成脂肪贮存起来，时间久了，身体就胖起来了。奶茶中的热量主要来源于：糖分（糖浆、甜味剂、珍珠糖浆等），奶制品（如牛奶、奶精、奶粉、奶油等），植物油类成分（如椰浆），配料（如布丁、椰果、果冻等）。'],
+                        [15500, 11, 3087.4, '热量',
+                        '供身体维持生命、生长发育和运动。热量供给过多时，多余的热量就会变成脂肪贮存起来，时间久了，身体就胖起来了。奶茶中的热量主要来源于：糖分（糖浆、甜味剂、珍珠糖浆等），奶制品（如牛奶、奶精、奶粉、奶油等），植物油类成分（如椰浆），配料（如布丁、椰果、果冻等）。'],
+                        [17000, 27, 3087.4, '热量',
+                        '供身体维持生命、生长发育和运动。热量供给过多时，多余的热量就会变成脂肪贮存起来，时间久了，身体就胖起来了。奶茶中的热量主要来源于：糖分（糖浆、甜味剂、珍珠糖浆等），奶制品（如牛奶、奶精、奶粉、奶油等），植物油类成分（如椰浆），配料（如布丁、椰果、果冻等）。'],
+                        [18500, 10, 2000.5, '碳水化合物',
+                        '是由碳、氢和氧三种元素组成,可以为人体提供热能。碳水化合物是生命细胞结构的主要成分及主要供能物质，并且有调节细胞活动的重要功能。具体来说，奶茶中加入的糖和牛奶中都含有葡萄糖、乳糖等单糖和双糖，这些是碳水化合物的一种。同时，一些奶茶店还会在奶茶中添加各种配料，例如珍珠、椰果、布丁等，这些配料也可能含有一定数量的碳水化合物。'],
+                        [16000, 40, 306.6, '蛋白质',
+                        '是生命的物质基础，是有机大分子，是构成细胞的基本有机物，是生命活动的主要承担者。奶茶是一种奶制品，根据国标进行换算，如果调配一杯500ml的奶茶，那其中的蛋白质含量应该要达到2.5g，则必须加入86g牛奶或等蛋白质含量的乳粉进行调制。'],
+                        [14000, 45, 686.9, '脂肪',
+                        '是食物中的油性物质。奶茶中的脂肪主要来自：奶制品（如全脂牛奶、奶精、奶粉），植物油类成分（如椰浆），某些带有脂肪成分的配料（如布丁、椰果等）。如果你想减少奶茶中的脂肪含量，可以选择低脂或植物基替代品（如低脂牛奶、杏仁奶、脱脂奶粉等），并避免使用高脂肪的奶精和椰浆。']
+                        ];
+
+                        // 获取窗口尺寸来动态调整坐标轴范围
+                        var containerWidth = chartDom.offsetWidth;
+                        var containerHeight = chartDom.offsetHeight;
+                        // 计算坐标轴范围
+                        var maxX = 30000; //横坐标最大为30000
+                        var maxY = 100; //纵坐标最大为100
+                        // 根据容器的宽高计算相对坐标轴的 min 和 max 值
+                        var xAxisMax = maxX;
+                        var yAxisMax = maxY;
+                        // 设置气泡最小和最大大小
+                        var minSymbolSize = 10; // 最小气泡大小
+                        var maxSymbolSize = 400; // 最大气泡大小
+
+                        option = {
+                        background:'transparent',
+                        grid: {//网格设置
+                            show:false,
+                            left: '8%',
+                            top: '10%'
+                        },
+                        xAxis: {
+                            show:false,
+                            scale:true,//开启缩放
+                            splitLine: {
+                            lineStyle: {
+                                type: 'dashed'//网格表示为虚线
+                            }
+                            },
+                            min:0,
+                            max:xAxisMax
+                        },
+                        yAxis: {
+                            show:false,
+                            splitLine: {
+                            lineStyle: {
+                                type: 'dashed'
+                            }
+                            },
+                            scale: true,//开启y轴上的数值进行缩放调整
+                            min:0,
+                            max:yAxisMax
+                        },
+                        tooltip:{
+                            trigger:'item',//按项触发
+                            formatter: function (params) {
+                                // 获取 params.data[2] 的值，并格式化为保留一位小数
+                                var averageContent = (params.data[2] / 88).toFixed(1);
+                                // 自定义鼠标悬停时的内容，可以显示任意数据
+                                return '成分: ' + params.data[3] + '<br>' +
+                                '平均含量: ' + averageContent 
+                            },
+                            textStyle: {
+                                color: '#D2B48C', // 提示框中文字颜色
+                            },
+                            padding: [10, 15], // 提示框的内边距
+                            extraCssText: 'box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);', // 提示框阴影效果
+                        },
+                        series: [
+                            {
+                                data: data,
+                                type: 'scatter',//表示这是一个散点图
+                                symbolSize: function (data) {
+                                    return Math.sqrt(data[2]);//根据第三个数据计算每个散点大小
+                                },
+                                label:{
+                                    show:true,
+                                    formatter:function(params){
+                                        return params.data[3];
+                                    }
+                                },
+                                itemStyle: {//数据点的样式
+                                    shadowBlur: 10,//阴影模糊程度
+                                    shadowColor: 'rgba(120, 36, 50, 0.5)',
+                                    shadowOffsetY: 5,
+                                    color: '#6f4f37' 
+                                }
+                            }
+                    ]
+                    };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+
+                window.addEventListener('resize', function () {
+                    containerWidth = chartDom.offsetWidth;
+                    containerHeight = chartDom.offsetHeight;
+                    // 根据新的尺寸重新设置图表
+                    myChart.resize();
+                    option.series[0].symbolSize = function (data) {
+                        return Math.sqrt(data[2]);//根据第三个数据计算每个散点大小
+                    };
+                myChart.setOption(option);
+                });
+
+                //监听事件
+                myChart.on('click', function (params) {
+                    // 获取被点击的气泡数据
+                    var clickedData = params.data;
+                    // 将相应的数据展示到页面上
+                    document.getElementById('contentinfo').innerHTML = `
+                        <span class="brown-text"> ${clickedData[3]} </span><br>
+                        <span class="brown-text"> ${clickedData[4]} </span>
+                    `;
+                    console.log(clickedData[3])
+
+                    //更新奶茶成份品种柱形图
+                    if (clickedData[3] === '热量') {
+                        updateBarChart('categoryA');
+                    } 
+                    else if (clickedData[3] === '碳水化合物') {
+                        updateBarChart('categoryB');
+                    } 
+                    else if (clickedData[3] === '蛋白质'){
+                        updateBarChart('categoryC');
+                    }
+                    else{
+                        updateBarChart('categoryD');
+                    }
+                });
+
+                //定义四种成份对应的柱形图
+                var barChartConfigs = {
+                    'categoryA': {
+                        graphic: {
+                            type: 'text',
+                            left: 'center',          // 文本居中显示
+                            top: '92%',           // 定位在图表底部
+                            style: {
+                                text: '此处事例为霸王茶姬中杯、默认最低糖度、标准冰每杯的成分含量',  // 注释内容
+                                font: '16px Arial',       // 字体设置
+                                fill: '#D2B48C'              // 字体颜色
+                            }
+                        },
+                        grid: {//网格设置
+                            show:true,
+                            left: '8%',
+                            top: '20%'
+                        },
+                        title: {
+                            text: '热量',
+                            textStyle: {
+                                color: 'brown', 
+                                fontSize: 20 // 可以调整字体大小
+                            },
+                            left: 'center', // 确保标题居中
+                            top: '10%' // 标题位置调整
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: ['伯牙绝弦', '金乌扶摇', '花田乌龙','桂馥兰香','山野栀子','玫瑰普洱','万里木兰','醒时春山'],
+                            axisLabel: {
+                                color: 'brown'// 设置横坐标轴标签的文字颜色为棕色
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            axisLabel:{
+                              color:'brown'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'axis', // 鼠标悬停时显示数据
+                            axisPointer: {
+                                type: 'shadow' // 阴影指示器，适合柱状图
+                            },
+                            formatter: function (params) {
+                                // 自定义格式化显示内容
+                                var data = params[0].data; // 获取当前鼠标悬停的柱状图数据
+                                return params[0].name + '<br>' + 
+                                '热量: ' + data + ' cal';
+                            },
+                            textStyle: {
+                                    color: '#D2B48C', // 提示框中文字颜色
+                                },
+                            padding: [10, 15], // 提示框的内边距
+                            extraCssText: 'box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);', // 提示框阴影效果
+                        },
+                        series: [{
+                            data: [130, 129, 125,121,146,110,142,128],
+                            type: 'bar',
+                            itemStyle:{
+                                color:'#D2B48C'
+                            }
+                        }]
+                    },
+                    'categoryB': {
+                        graphic: {
+                            type: 'text',
+                            left: 'center',          // 文本居中显示
+                            top: '92%',           // 定位在图表底部
+                            style: {
+                                text: '此处事例为霸王茶姬中杯、默认最低糖度、标准冰每杯的成分含量',  // 注释内容
+                                font: '16px Arial',       // 字体设置
+                                fill: '#D2B48C'              // 字体颜色
+                            }
+                        },
+                        grid: {//网格设置
+                            show:true,
+                            left: '8%',
+                            top: '20%'
+                        },
+                        title: {
+                            text: '碳水化合物',
+                            textStyle: {
+                                color: 'brown', 
+                                fontSize: 20 // 可以调整字体大小
+                            },
+                            left: 'center', // 确保标题居中
+                            top: '10%' // 标题位置调整
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: ['伯牙绝弦', '金乌扶摇', '花田乌龙','桂馥兰香','山野栀子','玫瑰普洱','万里木兰','醒时春山'],
+                            axisLabel: {
+                                color: 'brown'// 设置横坐标轴标签的文字颜色为棕色
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            axisLabel:{
+                              color:'brown'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'axis', // 鼠标悬停时显示数据
+                            axisPointer: {
+                                type: 'shadow' // 阴影指示器，适合柱状图
+                            },
+                            formatter: function (params) {
+                                // 自定义格式化显示内容
+                                var data = params[0].data; // 获取当前鼠标悬停的柱状图数据
+                                return params[0].name + '<br>' +
+                                 '碳水化合物: ' + data + ' g';
+                            },
+                            textStyle: {
+                                    color: '#D2B48C', // 提示框中文字颜色
+                                },
+                            padding: [10, 15], // 提示框的内边距
+                            extraCssText: 'box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);', // 提示框阴影效果
+                        },
+                        series: [{
+                            data: [6.7, 5.8, 6,8.9,8,6,7,6.4],
+                            type: 'bar',
+                            itemStyle:{
+                                color:'#D2B48C'
+                            }
+                        }]
+                    },
+                    'categoryC': {
+                        graphic: {
+                            type: 'text',
+                            left: 'center',          // 文本居中显示
+                            top: '92%',           // 定位在图表底部
+                            style: {
+                                text: '此处事例为霸王茶姬中杯、默认最低糖度、标准冰每杯的成分含量',  // 注释内容
+                                font: '16px Arial',       // 字体设置
+                                fill: '#D2B48C'              // 字体颜色
+                            }
+                        },
+                        grid: {//网格设置
+                            show:true,
+                            left: '8%',
+                            top: '20%'
+                        },
+                        title: {
+                            text: '蛋白质',
+                            textStyle: {
+                                color: 'brown', 
+                                fontSize: 20 // 可以调整字体大小
+                            },
+                            left: 'center', // 确保标题居中
+                            top: '10%' // 标题位置调整
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: ['伯牙绝弦', '金乌扶摇', '花田乌龙','桂馥兰香','山野栀子','玫瑰普洱','万里木兰','醒时春山'],
+                            axisLabel: {
+                                color: 'brown'// 设置横坐标轴标签的文字颜色为棕色
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            axisLabel:{
+                              color:'brown'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'axis', // 鼠标悬停时显示数据
+                            axisPointer: {
+                                type: 'shadow' // 阴影指示器，适合柱状图
+                            },
+                            formatter: function (params) {
+                                // 自定义格式化显示内容
+                                var data = params[0].data; // 获取当前鼠标悬停的柱状图数据
+                                return params[0].name + '<br>' +
+                                 '蛋白质: ' + data + ' g';
+                            },
+                            textStyle: {
+                                    color: '#D2B48C', // 提示框中文字颜色
+                                },
+                            padding: [10, 15], // 提示框的内边距
+                            extraCssText: 'box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);', // 提示框阴影效果
+                        },
+                        series: [{
+                            data: [2.8, 3.7, 3.2,3.6,4.1,2.9,3.8,4.1],
+                            type: 'bar',
+                            itemStyle:{
+                                color:'#D2B48C'
+                            }
+                        }]
+                    },
+                    'categoryD': {
+                        graphic: {
+                            type: 'text',
+                            left: 'center',          // 文本居中显示
+                            top: '92%',           // 定位在图表底部
+                            style: {
+                                text: '此处事例为霸王茶姬中杯、默认最低糖度、标准冰每杯的成分含量',  // 注释内容
+                                font: '16px Arial',       // 字体设置
+                                fill: '#D2B48C'              // 字体颜色
+                            }
+                        },
+                        grid: {//网格设置
+                            show:true,
+                            left: '8%',
+                            top: '20%'
+                        },
+                        title: {
+                            text: '脂肪',
+                            textStyle: {
+                                color: 'brown', 
+                                fontSize: 20 // 可以调整字体大小
+                            },
+                            left: 'center', // 确保标题居中
+                            top: '10%' // 标题位置调整
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: ['伯牙绝弦', '金乌扶摇', '花田乌龙','桂馥兰香','山野栀子','玫瑰普洱','万里木兰','醒时春山'],
+                            axisLabel: {
+                                color: 'brown'// 设置横坐标轴标签的文字颜色为棕色
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            axisLabel:{
+                              color:'brown'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'axis', // 鼠标悬停时显示数据
+                            axisPointer: {
+                                type: 'shadow' // 阴影指示器，适合柱状图
+                            },
+                            formatter: function (params) {
+                                // 自定义格式化显示内容
+                                var data = params[0].data; // 获取当前鼠标悬停的柱状图数据
+                                return params[0].name + '<br>' +
+                                 '脂肪: ' + data + ' g';
+                            },
+                            textStyle: {
+                                    color: '#D2B48C', // 提示框中文字颜色
+                                },
+                            padding: [10, 15], // 提示框的内边距
+                            extraCssText: 'box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);', // 提示框阴影效果
+                        },
+                        series: [{
+                            data: [10.3 , 10.6 , 9.9 , 8 , 10.9 , 8.4 , 11.1 , 9.7],
+                            type: 'bar',
+                            itemStyle:{
+                                color:'#D2B48C'
+                            }
+                        }]
+                    }
+                };
+
+                var barChart;
+                //更新柱形图函数
+                function updateBarChart(category) {
+                    var container=document.getElementById('milkteacolumn');
+                    // 如果容器的尺寸为零，需要触发重新布局
+                    console.log(container.offsetHeight)
+                    if (container.offsetWidth === 0 || container.offsetHeight === 0||container.offsetHeight === 25) {
+                        console.log('chufa')
+                        container.style.width = '100%'; // 设置宽度
+                        container.style.height = '400px'; // 设置高度
+                    }
+                
+                    barChart = echarts.init(container);
+                    var option = barChartConfigs[category];
+                    // 使用新的配置更新柱形图
+                    barChart.setOption(option);
+                    barChart.resize();
+                }
+                
+ 
+            </script>
+            </body>
+                </div>
+
+                <div class="right"><!--右边容器-->
+                    <div class="rightup">
+                        <h2>成分介绍</h2>
+                        <!--用于显示成份介绍-->
+                        <div id="contentinfo">
+                            <h3>点击一颗珍珠查看详情</h3>
+                        </div>
+                    </div>
+
+                    <div class="rightdown">
+                        <h2>奶茶成分含量</h2>
+                        <!--用于显示含有该成份的饮品-->
+                        <div id="milkteacolumn">
+                            <h3>点击一颗珍珠查看详情</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      
+        <section id="奶茶地图"><!--将主体分块-->
+          
+            <!-- 引入 echarts.min.js -->
+            <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+            <!-- 引入中国地图数据 -->
+            <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+          </head>
+          <body>
+
+          <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+          <div style="display: flex; height: 100%;">
+    <!-- 左侧，地图容器，占三分之二 -->
+    <div id="map" style="flex: 1.5; height: 100%;border-right:brown dotted; ">
+      <h2>奶茶地图</h2>
+        <!-- 地图内容 -->
+    </div>
+
+    <div style="flex: 1; display: flex; flex-direction: column; position: relative;">
+            <!-- 上半部分，折线图容器 -->
+            <div style="flex: 2; display: flex; justify-content: center; align-items: center; position: relative;">
+              <h2 id="brandTitle" style="position: absolute; top: 10px; left: 10px; margin: 0;">分布</h2>
+              <div id="brandDistribution" style="width: 80%; height: 80%; padding-top: 40px;"> <!-- 为了给标题留下空间 -->
+                <!-- 折线图内容 -->
+              </div>
+            </div>
+          
+            <!-- 下半部分，文字容器 -->
+            <div style="flex: 1; display: flex; justify-content: center; padding: 20px; position: relative;border-top: brown dotted;">
+              <h2 id="brandTitle" style="position: absolute; top: 10px; left: 10px; margin: 0;">介绍</h2>
+              <div id="textContainer" style="text-align: center; width: 100%; padding-top: 40px;"> <!-- 为了给标题留下空间 -->
+                <!-- 文字内容 -->
+              </div>
+            </div>
+          </div>
+  </div>
+
+</div>
+
+          <script type="text/javascript">
+            // 初始化ECharts实例
+                var myChart = echarts.init(document.getElementById('map'));
+ 
+                // 中国地图数据配置（通常ECharts 5.x版本已经内置了中国地图，无需额外注册）
+                var option = {
+                    title: {
+                        text: '中国奶茶品牌发源地',
+                        subtext: '点击发源地，查看该奶茶品牌的介绍，及它在各省份门市数量的折线图',
+                        left: 'center',
+                        textStyle:{
+                          color:'brown',
+                          fontSize:28,
+                          fontWeight:'bold'
+                        },
+                        subtextStyle:{
+                          color:'#D2B48C',
+                          fontSize:19
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: function(params) {
+                            // 注意：params.value 是一个数组，包含经纬度和奶茶品牌名
+                            return params.name + '<br/>奶茶品牌: ' + params.value[2];
+                        },
+                        textStyle: {
+                                color: '#D2B48C', // 提示框中文字颜色
+                            },
+                            padding: [10, 15], // 提示框的内边距
+                            extraCssText: 'box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);', // 提示框阴影效果
+                    },
+                    geo: {
+                        map: 'china',  // 使用中国地图
+                        roam: false,  // 启用缩放和平移
+                        label: {
+                            emphasis: {
+                                show: false  //不显示高亮标签
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                areaColor:'#e6ceac',
+                                borderColor: '#a52a2a'
+                            },
+                            emphasis: {
+                                areaColor: '#d2b48c' 
+                            }
+                        }
+                    },
+                  series: [
+                      {
+                          name: '奶茶品牌',
+                          type: 'scatter',
+                          coordinateSystem: 'geo',
+                          data: [
+                              {name: '郑州', value: [113.6500, 34.7600, '蜜雪冰城']}, // 河南省郑州市
+                              {name: '温州1', value: [120.6500, 28.0000, '古茗']}, // 浙江省温州市
+                              {name: '温州2', value:[120.0000, 28.0000, '霸王茶姬']}, // 浙江省温州市
+                              {name: '成都', value: [104.0668, 30.5728, '茶百道']}, // 四川省成都市
+                              {name: '岳阳', value: [113.1300, 29.3700, '书亦烧仙草']}, // 湖南省岳阳市
+                              {name: '深圳1', value: [114.0578, 22.5431, '奈雪的茶']}, // 广东省深圳市
+                              {name: '深圳2', value:[114.5000, 22.5431, '喜茶']}, // 广东省深圳市
+                              {name: '上海', value: [121.4737, 31.2304, '沪上阿姨']}, // 上海市
+                              {name: '台湾1', value: [121.0000, 24.5000, 'CoCo都可']}, // 台湾
+                              {name: '台湾2', value:[121.0000, 24.0000, '一点点']}, 
+                              {name: '长沙', value: [112.9823, 28.1941, '茶颜悦色']}, // 湖南省长沙市
+                              {name: '佛山', value: [113.1100, 23.0200, '益禾堂']}, // 广东省佛山市
+                              {name: '广州1', value: [113.2644, 23.1291, '一只酸奶牛']}, // 广东省广州市
+                              {name: '广州2', value:[113.6000, 23.1291, '甜啦啦']}, // 广东省广州市
+                              {name: '杭州', value: [120.1551, 30.2741, '快乐柠檬']}, // 浙江省杭州市
+                          ],
+                          symbolSize: function (val) {
+                              // 可以根据实际需求调整点的大小
+                              return 10;
+                          },
+                          label: {
+                              normal: {
+                                  formatter: '{b}',
+                                  position: 'right',
+                                  show: false
+                              },
+                              emphasis: {
+                                  show: true
+                              }
+                          },
+                          itemStyle: {
+                              normal: {
+                                  color: '#FF6347'
+                              }
+                          },
+                          
+                      }
+                  ]
+              };
+ 
+              // 使用刚定义的配置项和数据显示图表
+              myChart.setOption(option);
+
+              // 品牌介绍数据
+              const brandIntroduction = {
+                '蜜雪冰城': '蜜雪冰城，成立于1997年，中国知名奶茶品牌，经济实惠，口味多样，创新服务模式，深受消费者喜爱。',
+                '古茗': '古茗奶茶，2010年创立，以茶文化为特色，注重高品质原料和传统工艺，为年轻消费者带来独特茶饮体验。',
+                '霸王茶姬': '霸王茶姬，迅速崛起的奶茶品牌，独特品牌形象，高质量茶饮品，深受市场欢迎。',
+                '茶百道': '茶百道，2016年成立，以优质茶叶和创新饮品著称，赢得市场青睐，成为茶饮界新星。',
+                '书亦烧仙草': '书亦烧仙草，主打独特烧仙草饮品，融合现代茶饮和传统草本元素，为消费者带来健康美味。',
+                '奈雪的茶': '奈雪的茶，新兴茶饮品牌，2015年创立，以茶和鲜果搭配为特色，受到消费者热烈欢迎，成为茶饮市场热门品牌。',
+                '喜茶': '喜茶，近年来非常受欢迎的奶茶品牌，以创新口味和精致品牌形象在市场中取得巨大成功，引领茶饮潮流。',
+                '沪上阿姨': '沪上阿姨，上海本土奶茶品牌，口感独特，价格适中，迅速在市场上站稳脚跟，成为消费者喜爱的选择。',
+                '茶颜悦色': '茶颜悦色，来自长沙的奶茶品牌，以浓郁的茶香和独特的颜值营销在市场中获得广泛关注，成为茶饮界的新宠。',
+                '益禾堂': '益禾堂奶茶，以“天然原料、优质服务”为核心理念，稳步扩张，为消费者带来健康美味的茶饮体验。',
+                '一只酸奶牛': '一只酸奶牛，主打酸奶饮品，专注于健康美味，尤其受到年轻人群体的青睐，成为酸奶茶饮市场的佼佼者。',
+                '甜啦啦': '甜啦啦奶茶，中国本土品牌，凭借独特的饮品配方和不断创新的产品，受到广大消费者的喜爱，成为茶饮市场的热门之选。',
+                '快乐柠檬': '快乐柠檬，2012年创立，以其创新的柠檬系列产品和时尚品牌形象成为市场上的领军品牌之一，深受消费者喜爱。',
+                'CoCo都可': 'CoCo都可，全球知名连锁茶饮品牌，创立于1997年，以“新鲜、健康、美味”的产品赢得消费者青睐，成为茶饮市场的常青树。',
+                '一点点': '一点点奶茶，创立于2010年，以丰富的奶茶口味和定制化的服务吸引大量忠实粉丝，成为消费者心中的奶茶优选品牌。',
+            };
+             
+              // 模拟门市数量数据
+              const storeData = {
+                  '蜜雪冰城': [2450, 1850, 1250, 1450, 1290, 1230, 1270,1270, 800, 1300,
+                              960, 850, 600, 400, 350, 800, 250, 150, 120,
+                              3500,600,450,550,400,50,1000,10],  // 各省门市数量（示例数据）
+                  '古茗': [1000, 1500, 900, 1100, 1300, 1200, 950, 800, 700, 1100,
+                          800, 750, 550, 400, 300, 700, 200, 100, 80,
+                          2500, 550, 420, 500, 380, 40, 850, 0],
+                  '霸王茶姬': [450, 380, 520, 560, 490, 530, 360, 320, 270, 390,
+                              350, 200, 250, 180, 220, 300, 100, 80, 70,
+                              1100, 240, 220, 280, 200, 30, 400, 0],
+                  '茶百道': [900, 750, 1000, 700, 1400, 900, 600, 450, 300, 800,
+                            650, 1000, 400, 250, 200, 500, 100, 50, 60,
+                            1100, 500, 400, 600, 350, 70, 800, 20],
+                  '书亦烧仙草': [750, 300, 700, 1300, 700, 250, 450, 150, 90, 160,
+                                650, 1500, 250, 500, 200, 250, 130, 15, 70,
+                                420, 320, 400, 150, 140, 30, 550, 10],
+                  '奈雪的茶': [120, 180, 210, 80, 350, 240, 110, 90, 40, 160,
+                              100, 140, 60, 30, 40, 70, 20, 10, 10,
+                              150, 80, 70, 120, 90, 20, 280, 5],
+                  '喜茶': [40, 190, 310, 110, 510, 300, 140, 80, 60, 180,
+                          110, 110, 100, 70, 30, 50, 10, 5, 10,
+                          330, 140, 70, 130, 50, 70, 800, 0],
+                  '沪上阿姨': [450, 1024, 600, 400, 800, 500, 521, 300, 200, 400,
+                          350, 200, 250, 150, 120, 250, 50, 30, 40,
+                          700, 200, 300, 400, 150, 100, 42, 0],
+                  '茶颜悦色': [0, 0, 12, 0, 0, 0, 0, 0, 0, 0,
+                              69, 408, 0, 0, 0, 1, 0, 0, 0,
+                              0, 0, 24, 0, 0, 0, 0, 0],
+                  '益禾堂': [600, 450, 500, 350, 1200, 400, 450, 250, 200, 550,
+                            300, 350, 250, 150, 120, 300, 50, 20, 30,
+                            800, 200, 180, 220, 150, 30, 600, 0],
+                  '一只酸奶牛': [150, 120, 80, 60, 90, 80, 100, 30, 40, 70,
+                              50, 40, 30, 20, 15, 50, 10, 5, 5,
+                              150, 30, 25, 35, 25, 5, 60, 0],
+                  '甜啦啦': [827, 600, 480, 570, 340, 339, 2030, 70, 280, 681,
+                            540, 350, 480, 150, 360, 66, 55, 20, 30,
+                            2000, 200, 450, 500, 300, 30, 130, 0],
+                  '快乐柠檬': [150, 170, 200, 50, 140, 158, 100, 7, 28, 100,
+                              54, 69, 48, 8, 36, 30, 22, 2, 6,
+                              70, 25, 24, 20, 15, 3, 50, 0],
+                  'CoCo都可': [162, 236, 482, 204, 340, 339, 207, 72, 28, 100,
+                              155, 134, 210, 35, 38, 66, 55, 9, 26,
+                              150, 225, 48, 83, 50, 3, 421, 0],
+                  '一点点': [400, 320, 621, 300, 396, 300, 150, 72, 28, 100,
+                            150, 130, 200, 30, 16, 106, 50, 9, 20,
+                            287, 71, 90, 55, 40, 3, 200, 0],
+              };
+
+             // 点击事件处理
+              myChart.on('click', function (params) {
+                  var clickedData = params.data;
+                  var brandName = clickedData.value[2];  // 获取点击的品牌名
+
+                  // 获取品牌介绍
+                  var intro = brandIntroduction[brandName] || '暂无品牌介绍';
+
+                  // 更新页面内容
+                  document.getElementById('textContainer').innerHTML = `
+                      <span class="brown-text"> ${intro}</span>
+                  `;
+
+                  // 更新门市数量折线图
+                  updateLineChart(brandName);
+              }); 
+
+              // 更新折线图
+              function updateLineChart(brandName) {
+                var storeCounts = storeData[brandName] || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                            0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                            0, 0, 0, 0, 0, 0, 0, 0
+                                                            ];  // 获取该品牌的门市数量数据
+
+// 省份名称数组
+var provinces = [' 河南省 ',' 山东省 ',' 江苏省 ',' 四川省 ',' 广东省 ',' 浙江省 ',' 安徽省 ',' 陕西省 ',' 山西省 ',' 河北省 ',
+                ' 湖北省 ',' 湖南省 ',' 江西省 ',' 贵州省 ',' 云南省 ',' 福建省 ',' 海南省 ',' 青海省 ',' 甘肃省 ',
+                ' 东北三省 ',' 北京市 ',' 重庆市 ',' 上海市 ',' 天津市 ',' 特别行政区 ',' 自治区 ',' 台湾省 '];
+
+// 创建折线图的配置项
+var lineChart = echarts.init(document.getElementById('brandDistribution'));
+
+var optionLineChart = {
+    title: {
+        text: brandName + ' 各省门市数量',
+        left: 'center',
+        textStyle:{
+          color:'brown'
+        }
+    },
+    tooltip: {
+        trigger: 'axis',
+        textStyle: {
+          color: '#D2B48C', // 提示框中文字颜色
+        },
+        padding: [10, 15], // 提示框的内边距
+        extraCssText: 'box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);', // 提示框阴影效果
+    },
+    xAxis: {
+        type: 'category',
+        data: provinces,  // x轴数据为省份
+        axisLabel: {
+            rotate: 45  ,// 省份名称倾斜显示，避免重叠
+            color:'brown'
+        }
+    },
+    yAxis: {
+        type: 'value',
+        name: '门市数量',
+        nameTextStyle:{
+          color:'brown'
+        },
+        axisLabel: {
+            formatter: '{value}',
+            color:'brown'
+        }
+    },
+    series: [{
+        name: '门市数量',
+        type: 'line',
+        data: storeCounts,  // y轴数据为该品牌的门市数量
+        smooth: true,  // 曲线平滑处理
+        itemStyle: {
+            color: '#FF6347'  // 设置线条颜色
+        },
+        lineStyle: {
+            width: 3  // 设置线条宽度
+        },
+        emphasis: {
+            focus: 'series'
+        }
+    }]
+};
+
+// 设置折线图的配置
+lineChart.setOption(optionLineChart);
+              }
+          </script>
+          </body>
+        </section>
+
+
+        <section id="奶茶分类价格图"><!--将主体分块-->
+            
+<!-- 引入刚刚下载的 ECharts 文件 -->
+                <script src="echarts.js"></script>
+<style>
+        /* 移除默认的边距和填充，使页面元素占据整个视窗 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+ 
+
+        /* 设置ECharts容器的样式 */
+        #sankey {
+            width: 100%; /* 宽度设置为100%，与页面宽度一致 */
+            height:100%; 
+position: absolute;
+z-index: 4;
+        }
+    </style>
+
+            </head>
+            <body>
+            <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+            <div id="sankey" style="width: 100%;height:650px;  "></div>
+            <script type="text/javascript">
+                // 基于准备好的dom，初始化echarts实例
+var chartDom = document.getElementById('sankey');
+var myChart = echarts.init(chartDom);
+var option;
+myChart.setOption(
+  (option = {
+    title: {
+        text: '奶茶分类价格图',
+        subtext:'选取五种平均价格不一、有代表性的奶茶品牌，再\n随机抽取各个品牌的六种奶茶，将其分为10元以下、\n10—14元、15—20元、20元及以上四个价格段与\n奶茶、果茶、咖啡三个类别',
+        left: 'left', // 设置位置在左上角
+        top: 'top',
+        textStyle: {
+          fontSize: 28,
+          fontWeight: 'bold',
+          color:'brown'
+        },
+        subtextStyle:{
+          fontSize: 19,
+          color:'brown',
+          lineHeight:25
+        }
+    },
+    tooltip: {
+      trigger: 'item',
+      triggerOn: 'mousemove',
+      formatter: function (params) {
+        return  params.name +'<br/>'+'价格： '+params.value + '元';
+    },
+   
+    },
+
+    
+    color: [
+
+  "#D2AE94", 
+"#E0C394",
+"#D2B48C",
+     "#A58D61",
+
+	
+ 
+    ],
+  series: [
+    {
+      type: 'sankey',
+      left: 220.0,
+      top: 100,
+      right: 220.0,
+      bottom: 15,
+     
+        data: [
+{
+        name: '茶颜悦色'
+      },
+{
+        name: '不食人间烟火'
+      },
+{
+        name: '素颜锡兰'
+      },
+{
+        name: '浮云沉香'
+      },
+
+{
+        name: '庄生晓梦蝶'
+      },
+{
+        name: '万般皆苦'
+      },
+{
+        name: '月过山丘'
+      },
+
+ {
+        name: '20及以上'
+      },
+
+ {
+        name: '15—20元'
+      },
+
+ {
+        name: '10—14元'
+      },
+{
+        name: '10元以下'
+      },
+
+      {
+        name: '霸王茶姬'
+      },
+ {
+        name: '珍珠奶茶'
+      },
+ {
+        name: '茉莉奶绿'
+      },
+ {
+        name: '冰鲜柠檬水'
+      },
+ {
+        name: '蜜桃四季春'
+      },
+ {
+        name: '芝士奶盖四季春'
+      },
+ {
+        name: '雪王雪顶咖啡'
+      },
+ {
+        name: '蜜雪冰城'
+      },
+{
+        name: '茶百道'
+      },
+{
+        name: '豆乳米麻薯'
+      },
+{
+        name: '豆乳玉麒麟'
+      },
+{
+        name: '超厚芋泥奶茶'
+      },
+{
+        name: '茉莉芭乐'
+      },
+{
+        name: '超级大瓜'
+      },
+{
+        name: '金萱乌龙'
+      },
+
+      {
+        name: '大红袍茶拿铁'
+      },
+      {
+        name: '伯牙绝弦'
+      },
+      {
+        name: '桂子飘飘'
+      },
+      {
+        name: '琥珀光'
+      },
+	{
+        name: '正山小种茶拿铁'
+      },
+      {
+        name: '桂馥兰香'
+      },
+	{
+        name: '咖啡'
+      },
+	{
+        name: '奶茶'
+      },
+	{
+        name: '果茶'
+      },
+{
+        name: '喜茶'
+      },
+{
+        name: '芝芝抹茶'
+      },
+{
+        name: '多肉葡萄'
+      },
+{
+        name: '喜柿多多'
+      },
+{
+        name: '抹云茉莉'
+      },
+{
+        name: '椰椰芒芒'
+      }
+    ],
+    links: [
+{
+        source: '15—20元',
+        target: '茶颜悦色',
+        value:15
+      },
+{
+        source: '20及以上',
+        target: '茶颜悦色',
+        value:20
+      },
+{
+        source: '10—14元',
+        target: '茶颜悦色',
+        value:10
+      },
+{
+        source: '茶颜悦色',
+        target: '月过山丘',
+        value:16.8
+      },
+{
+        source: '茶颜悦色',
+        target: '万般皆苦',
+        value:14.8
+      },
+{
+        source: '茶颜悦色',
+        target: '庄生晓梦蝶',
+        value:20.8
+      },
+{
+        source: '茶颜悦色',
+        target: '浮云沉香',
+        value:12
+      },
+{
+        source: '茶颜悦色',
+        target: '素颜锡兰',
+        value:14
+      },
+{
+        source: '茶颜悦色',
+        target: '不食人间烟火',
+        value:16
+      },
+{
+        source: '浮云沉香',
+        target: '奶茶',
+        value:12
+      },
+{
+        source: '素颜锡兰',
+        target: '奶茶',
+        value:14
+      },
+{
+        source: '不食人间烟火',
+        target: '奶茶',
+        value:16
+      },
+{
+        source: '庄生晓梦蝶',
+        target: '咖啡',
+        value:20.8
+      },
+{
+        source: '月过山丘',
+        target: '咖啡',
+        value:16.8
+      },
+{
+        source: '万般皆苦',
+        target: '咖啡',
+        value:14.8
+      },
+{
+        source: '15—20元',
+        target: '喜茶',
+        value:15
+      },
+{
+        source: '20及以上',
+        target: '喜茶',
+        value:20
+      },
+
+
+{
+        source: '15—20元',
+        target: '霸王茶姬',
+        value:15
+      },
+{
+        source: '20及以上',
+        target: '霸王茶姬',
+        value:20
+      },
+
+{
+        source: '10元以下',
+        target: '茶百道',
+        value:5
+      },
+{
+        source: '10—14元',
+        target: '茶百道',
+        value:10
+      },
+{
+        source: '15—20元',
+        target: '茶百道',
+        value:15
+      },
+{
+        source: '10元以下',
+        target: '蜜雪冰城',
+        value:5
+      },
+
+{
+        source: '超级大瓜',
+        target: '果茶',
+        value:20
+      },
+
+{
+        source: '金萱乌龙',
+        target: '奶茶',
+        value:7
+      },
+{
+        source: '茉莉芭乐',
+        target: '果茶',
+        value:14
+      },
+{
+        source: '豆乳玉麒麟',
+        target: '奶茶',
+        value:14
+      },
+{
+        source: '豆乳米麻薯',
+        target: '奶茶',
+        value:16
+      },
+{
+        source: '超厚芋泥奶茶',
+        target: '奶茶',
+        value:13
+      },
+{
+        source: '茉莉奶绿',
+        target: '奶茶',
+        value:10
+      },
+{
+        source: '茶百道',
+        target: '超级大瓜',
+        value:20
+      },
+
+
+{
+        source: '茶百道',
+        target: '金萱乌龙',
+        value:7
+      },
+{
+        source: '茶百道',
+        target: '茉莉芭乐',
+        value:14
+      },
+{
+        source: '茶百道',
+        target: '豆乳玉麒麟',
+        value:14
+      },
+{
+        source: '茶百道',
+        target: '豆乳米麻薯',
+        value:16
+      },
+{
+        source: '茶百道',
+        target: '超厚芋泥奶茶',
+        value:13
+      },
+{
+        source: '茶百道',
+        target: '茉莉奶绿',
+        value:10
+      },
+{
+        source: '喜茶',
+        target: '波波真乳茶',
+        value:15
+      },
+
+{
+        source: '喜茶',
+        target: '抹云茉莉',
+        value:19
+      },
+
+ {
+        source: '喜茶',
+        target: '芝芝抹茶',
+        value:19
+      },
+
+ {
+        source: '喜茶',
+        target: '多肉葡萄',
+        value:18
+      },
+
+ {
+        source: '喜茶',
+        target: '喜柿多多',
+        value:19
+      },
+ {
+        source: '喜茶',
+        target: '椰椰芒芒',
+        value:15
+      },
+{
+        source: '波波真乳茶',
+        target: '奶茶',
+        value:15
+      },
+
+{
+        source: '抹云茉莉',
+        target: '奶茶',
+        value:19
+      },
+
+ {
+        source: '芝芝抹茶',
+        target: '奶茶',
+        value:19
+      },
+
+ {
+        source: '多肉葡萄',
+        target: '果茶',
+        value:18
+      },
+
+ {
+        source: '喜柿多多',
+        target: '果茶',
+        value:19
+      },
+ {
+        source: '椰椰芒芒',
+        target: '果茶',
+        value:15
+      },
+{
+        source: '蜜雪冰城',
+        target: '雪王雪顶咖啡',
+        value:7
+      },
+{
+        source: '蜜雪冰城',
+        target: '芝士奶盖四季春',
+        value:8
+      },
+{
+        source: '蜜雪冰城',
+        target: '茉莉奶绿',
+        value:6
+      },
+{
+        source: '蜜雪冰城',
+        target: '冰鲜柠檬水',
+        value:4
+      },
+{
+        source: '蜜雪冰城',
+        target: '蜜桃四季春',
+        value:7
+      },
+{
+        source: '蜜雪冰城',
+        target: '珍珠奶茶',
+        value:6
+      },
+
+      {
+        source: '霸王茶姬',
+        target: '伯牙绝弦',
+        value:16
+      },
+{
+        source: '雪王雪顶咖啡',
+        target: '咖啡',
+        value:7
+      },
+{
+        source: '芝士奶盖四季春',
+        target: '奶茶',
+        value:8
+      },
+{
+        source: '茉莉奶绿',
+        target: '奶茶',
+        value:6
+      },
+{
+        source: '冰鲜柠檬水',
+        target: '果茶',
+        value:4
+      },
+{
+        source: '蜜桃四季春',
+        target: '果茶',
+        value:7
+      },
+{
+        source: '珍珠奶茶',
+        target: '奶茶',
+        value:6
+      },
+
+      {
+        source: '霸王茶姬',
+        target: '桂子飘飘',
+        value: 20
+      },
+ {
+        source: '伯牙绝弦',
+        target: '奶茶',
+        value:16
+      },
+      {
+        source: '桂子飘飘',
+        target: '奶茶',
+        value: 20
+      },
+
+      {
+        source: '霸王茶姬',
+        target: '大红袍茶拿铁',
+        value: 20
+      },
+      {
+        source: '霸王茶姬',
+        target: '琥珀光',
+        value: 18
+      },
+      {
+        source: '霸王茶姬',
+        target: '正山小种茶拿铁',
+        value: 16
+      },
+      {
+        source: '霸王茶姬',
+        target: '桂馥兰香',
+        value: 16
+      },
+{
+        source: '琥珀光',
+        target: '果茶',
+        value: 18
+      },
+      {
+        source: '正山小种茶拿铁',
+        target: '奶茶',
+        value: 20
+      },
+      {
+        source: '桂馥兰香',
+        target: '奶茶',
+        value: 16
+      },
+
+ 	{
+        source: '大红袍茶拿铁',
+        target: '咖啡',
+        value: 20
+      }
+
+    ],
+	emphasis: {
+          focus: 'adjacency'
+        },
+      lineStyle: {
+    	 color: 'gradient',
+        curveness: 0.4
+      },
+
+      label: {
+        color: 'rgba(0,0,0,1)',
+        fontFamily: 'Arial',
+        fontSize: 12
+      }
+     }
+    ]
+  })
+);
+
+option && myChart.setOption(option);
+// 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            </script>
+            </body>
+        </section>
+
+    </main>
+    <footer><!--页尾放置版权声明等附加资讯-->
+
+    </footer>
+    
+    
+</body>
+
+</html>
